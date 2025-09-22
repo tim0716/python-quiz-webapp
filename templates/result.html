@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Result</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="card">
+      <h2>Quiz Completed!</h2>
+      <p>Your Score: <strong>{{ score }} / {{ total }}</strong></p>
+
+      <div class="review">
+        {% for q in questions %}
+  {% set i = loop.index0 %}
+  {% set user = selected[i] if i < selected|length else 'Not Answered' %}
+  <div class="review-item">
+    <p class="question">Q{{ loop.index }}. {{ q.question }}</p>
+    {% if user == q.answer %}
+      <p class="correct">✅ Correct (You: {{ user }})</p>
+    {% else %}
+      <p class="wrong">❌ Wrong (You: {{ user }} — Correct: {{ q.answer }})</p>
+    {% endif %}
+  </div>
+{% endfor %}
+
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="{{ url_for('show_leaderboard') }}">Leaderboard</a>
+        <a class="btn" href="{{ url_for('restart') }}">Restart</a>
+      </div>
+    </div>
+  </body>
+</html>

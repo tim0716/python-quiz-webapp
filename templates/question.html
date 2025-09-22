@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Question {{ qnum }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+      // simple countdown timer (20 seconds)
+      let timeLeft = 20;
+      function startTimer() {
+        const timerEl = document.getElementById('timer');
+        timerEl.innerText = `Time Left: ${timeLeft}s`;
+        const t = setInterval(() => {
+          timeLeft -= 1;
+          timerEl.innerText = `Time Left: ${timeLeft}s`;
+          if (timeLeft <= 0) {
+            clearInterval(t);
+            // auto submit form if no option selected
+            document.getElementById('quizForm').submit();
+          }
+        }, 1000);
+      }
+      window.onload = startTimer;
+    </script>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">
+        <h3>Question {{ qnum }} / {{ total }}</h3>
+        <div id="timer" class="timer">Time Left: 20s</div>
+      </div>
+      <form id="quizForm" method="post" action="{{ url_for('answer') }}">
+        <p class="question">{{ q.question }}</p>
+        <div class="options">
+          {% for opt in q.options %}
+            <label class="option"><input type="radio" name="option" value="{{ opt }}"> {{ opt }}</label>
+          {% endfor %}
+        </div>
+        <div class="actions">
+          <button type="submit">Next</button>
+          <a class="link" href="{{ url_for('restart') }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

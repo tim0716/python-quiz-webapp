@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Select Level</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="card">
+      <h2>Hello, {{ username }}!</h2>
+      <p>Select Difficulty</p>
+      <div class="levels">
+        <a class="level" href="{{ url_for('start', level='Easy') }}">Easy</a>
+        <a class="level" href="{{ url_for('start', level='Medium') }}">Medium</a>
+        <a class="level" href="{{ url_for('start', level='Hard') }}">Hard</a>
+      </div>
+    </div>
+  </body>
+</html>
